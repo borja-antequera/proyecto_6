@@ -1,0 +1,95 @@
+<section>
+    <div class="wrapper-adminpanel">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 offset-1">
+                    {{#if correcto}}
+                        <div class="alert alert-success">{{correcto}}</div>
+                    {{/if}}
+                    {{#if error}}
+                        <div class="alert alert-warning">{{error}}</div>
+                    {{/if}}
+                    {{#if destinos.length}}
+                        <table class="table tabla-destinos-adminpanel">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Imagen</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Activo</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each destinos}}
+                                <tr>
+                                    <th scope="row">{{id}}</th>
+                                    <td>{{nombre_viaje}}</td>
+                                    <td>{{fechas}}</td>
+                                    <td>{{descripcion}}</td>
+                                    <td><img src="{{imagen}}" style="width: 5em" alt="{{nombre}}"/></td>
+                                    <td>{{precio}}</td>
+                                    <td><input type="checkbox" {{#if activo}}
+                                        checked
+                                    {{/if}}></td>
+                                    <td><a href="/admins/adminpanel/borrar/{{id}}"><button type="button" class="btn btn-danger"><span class="fa fa-trash"></span> </button></a>
+                                        <button type="button" class="btn btn-success"><span class="fa fa-edit"></span></button>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal"><span class="fa fa-plane"></span>Crear Nuevo </button>
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Añadir destino</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/admins/adminpanel/crear" method="post">
+                                            <div class="form-group">
+                                                <label for="nombre_viaje">Nombre:</label>
+                                                <input type="text" name="nombre" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Nombre Viaje"required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="fecha_viaje">Fecha</label>
+                                                <input type="text" name="fecha" class="form-control" id="fecha" placeholder="Fecha viaje" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="descripcion_viaje">Descripcion</label>
+                                                <input type="text" name="descripcion" class="form-control" id="descripcion" placeholder="Descripcion viaje" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="imagen">Imagen</label>
+                                                <input type="text" name="imagen" class="form-control" id="imagen" placeholder="imagen" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="imagen">Precio</label>
+                                                <input type="number" name="precio" class="form-control" id="precio" placeholder="Precio viaje" required>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" name="activo" class="form-check-input" id="exampleCheck1">
+                                                <label class="form-check-label" for="exampleCheck1">Activo</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
