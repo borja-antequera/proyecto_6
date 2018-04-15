@@ -1,0 +1,57 @@
+<section>
+    <div class="wrapper-adminpanel">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 offset-1">
+                    {{#if correcto}}
+                        <div class="alert alert-success">{{correcto}}</div>
+                    {{/if}}
+                    {{#if error}}
+                        <div class="alert alert-warning">{{error}}</div>
+                    {{/if}}
+                    {{#if users.length}}
+                        <table class="table tabla-destinos-adminpanel">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
+                                <!--<th scope="col">Password</th>-->
+                                <!--<th scope="col">Hash</th>-->
+                                <th scope="col">isAdmin</th>
+                                <th scope="col">Active</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each users}}
+                                <tr>
+                                    <th scope="row">{{id}}</th>
+                                    <td>{{nombre}}</td>
+                                    <td>{{email}}</td>
+                                    <!--<td>{{password}}</td>-->
+                                    <!--<td>{{hash}}</td>-->
+                                    <td><input type="checkbox" {{#if isAdmin}}
+                                               checked
+                                    {{/if}}
+                                               onclick="window.location.assign('/admins/userpanel/isAdmin/{{id}}')"></td>
+
+
+                                    <td><input type="checkbox" {{#if active}}
+                                               checked
+                                    {{/if}}
+                                               onclick="window.location.assign('/admins/userpanel/active/{{id}}')"></td>
+                                    <td><a href="/admins/userpanel/borrarUser/{{id}}">
+                                        <button type="button" class="btn btn-danger"><span class="fa fa-trash"></span>
+                                        </button>
+                                    </a>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,6 +1,6 @@
 var usersModel =require('.././models/usersModel');
 var bcrypt = require('bcrypt-nodejs');
-var usersModel =require('.././models/usersModel');
+
 
 var userController = {};
 
@@ -110,6 +110,91 @@ userController.logOut= function (req, res, next){
         res.redirect('/');
     }
 };
+
+userController.getAllUsers = function (req, res, next) {
+
+
+    usersModel.getAllUsers((err,users)=>{
+        if(err) {
+            res.status(500).json(err);
+        }else{
+            if(!req.session.username){
+                res.redirect('/');
+            }else{
+                if(req.session.isAdmin){
+                    res.render('adminUsersPanel',{
+                        title: 'Panel de administrador usuarios',
+                        layout: '../views/templates/default',
+                        users: users,
+                        isLogged: true,
+                        isAdmin: true
+                        // correcto: req.flash('correcto'),
+                        // error: req.flash('error'),
+                    })
+                }else{
+                    res.redirect('/');
+                }
+            }
+        }
+    })
+};
+userController.darPermisos = (req, res, next)=> {
+    usersModel.darPermisos(req.params.id, (err, result)=>{
+        if(err){
+            res.status(500).json(err);
+        }else{
+            if(!req.session.username){
+                res.redirect('/');
+            }else{
+                if(req.session.isAdmin){
+                    req.flash('error','Se ha cambiado el campo activo del usuario'+req.params.id+'!')
+                    res.redirect('/admins/userpanel');
+                }else{
+                    res.redirect('/');
+                }
+            }
+        }
+    })
+};
+
+userController.activar = (req, res, next)=> {
+    usersModel.activar(req.params.id, (err, result)=>{
+        if(err){
+            res.status(500).json(err);
+        }else{
+            if(!req.session.username){
+                res.redirect('/');
+            }else{
+                if(req.session.active){
+                    req.flash('error','Se ha cambiado el campo activo del usuario'+req.params.id+'!')
+                    res.redirect('/admins/userpanel');
+                }else{
+                    res.redirect('/');
+                }
+            }
+        }
+    })
+};
+
+userController.deleteUser = (req, res, next)=> {
+    usersModel.deleteUser(req.params.id, (err, result)=>{
+        if(err){
+            res.status(500).json(err);
+        }else{
+            if(!req.session.username){
+                res.redirect('/');
+            }else{
+                if(req.session.isAdmin){
+                    req.flash('error', 'Se ha borrado el registro'+req.params.id+'!')
+                    res.redirect('/admins/userpanel');
+                }else{
+                    res.redirect('/');
+                }
+            }
+        }
+    })
+};
+
 
 module.exports = userController;
 

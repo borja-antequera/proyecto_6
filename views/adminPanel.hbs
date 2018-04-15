@@ -33,61 +33,85 @@
                                     <td><img src="{{imagen}}" style="width: 5em" alt="{{nombre}}"/></td>
                                     <td>{{precio}}</td>
                                     <td><input type="checkbox" {{#if activo}}
-                                        checked
+                                               checked
                                     {{/if}}></td>
-                                    <td><a href="/admins/adminpanel/borrar/{{id}}"><button type="button" class="btn btn-danger"><span class="fa fa-trash"></span> </button></a>
-                                        <button type="button" class="btn btn-success"><span class="fa fa-edit"></span></button>
+                                    <td><a href="/admins/adminpanel/borrar/{{id}}">
+                                        <button type="button" class="btn btn-danger"><span class="fa fa-trash"></span>
+                                        </button>
+                                    </a>
+                                        <button type="button" class="btn btn-success"><span class="fa fa-edit"></span>
+                                        </button>
                                     </td>
                                 </tr>
                             {{/each}}
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal"><span class="fa fa-plane"></span>Crear Nuevo </button>
+                        <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
+                                data-target="#exampleModal"><span class="fa fa-plane"></span>Crear Nuevo
+                        </button>
 
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Añadir destino</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="/admins/adminpanel/crear" method="post">
-                                            <div class="form-group">
-                                                <label for="nombre_viaje">Nombre:</label>
-                                                <input type="text" name="nombre" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Nombre Viaje"required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="fecha_viaje">Fecha</label>
-                                                <input type="text" name="fecha" class="form-control" id="fecha" placeholder="Fecha viaje" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="descripcion_viaje">Descripcion</label>
-                                                <input type="text" name="descripcion" class="form-control" id="descripcion" placeholder="Descripcion viaje" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="imagen">Imagen</label>
-                                                <input type="text" name="imagen" class="form-control" id="imagen" placeholder="imagen" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="imagen">Precio</label>
-                                                <input type="number" name="precio" class="form-control" id="precio" placeholder="Precio viaje" required>
-                                            </div>
-
-                                            <div class="form-check">
-                                                <input type="checkbox" name="activo" class="form-check-input" id="exampleCheck1">
-                                                <label class="form-check-label" for="exampleCheck1">Activo</label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </form>
-                                    </div>
-
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Añadir destino</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
+                                <div class="modal-body">
+                                    <form action="/admins/adminpanel/crear" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="nombre_viaje">Nombre:</label>
+                                            <input type="text" name="nombre" class="form-control" id="nombre"
+                                                   aria-describedby="emailHelp" placeholder="Nombre Viaje" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fecha_viaje">Fecha</label>
+                                            <input type="text" name="fecha" class="form-control" id="fecha"
+                                                   placeholder="Fecha viaje" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="descripcion_viaje">Descripcion</label>
+                                            <input type="text" name="descripcion" class="form-control" id="descripcion"
+                                                   placeholder="Descripcion viaje" required>
+                                        </div>
+                                        <!--<div class="form-group">-->
+                                        <!--<label for="imagen">Imagen</label>-->
+                                        <!--<input type="text" name="imagen" class="form-control" id="imagen" placeholder="imagen" required>-->
+                                        <!--</div>-->
+
+
+                                        <div class="form-group">
+                                            <label for="subir_imagen">Subir Imagen</label><br>
+                                            <input type="file" name="file" class="form-control">
+                                                Subir
+                                            </input>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="precio">Precio</label>
+                                            <input type="number" name="precio" class="form-control" id="precio"
+                                                   placeholder="Precio viaje" required>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input type="checkbox" name="activo" class="form-check-input"
+                                                   id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Activo</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+
+
+
                             </div>
                         </div>
                     {{/if}}
+                </div>
                 </div>
             </div>
         </div>

@@ -2,6 +2,8 @@ var express = require('express');
 var hash= require('bcrypt-nodejs');
 var router = express.Router();
 var destinationsModel =require('.././models/destinationsModel');
+//const Sequelize = require('sequelize');
+//const Email = require('../config/emailConf');
 
 
 /* GET home page. */
@@ -38,9 +40,6 @@ router.get('/', function(req, res, next) {
         }
     })
 });
-
-
-
 
 
 module.exports = router;

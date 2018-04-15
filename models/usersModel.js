@@ -45,6 +45,77 @@ Users.login = (usuario,cb)=>{
     })
 };
 
+
+    Users.getAllUsers = (cb)=>{
+        if (!conn) return cb("No se ha podido crear la conexion");
+        conn.query('SELECT * FROM cliente',function (err,users) {
+            if (err) return cb(err);
+            return cb(err,users);
+        })
+    };
+
+    Users.darPermisos = (id,cb)=>{
+        if (!conn) return cb("No se ha podido crear la conexion");
+        conn.query('SELECT * FROM cliente WHERE id=?',id, function (err, resultado) {
+            if (err) return cb(err);
+            else{
+                let admin =resultado[0].isAdmin;
+                if(admin==1)
+                    admin=0;
+                else
+                    admin=1;
+                conn.query('UPDATE cliente set isAdmin='+admin+' WHERE id=?',id, function (err, resultado) {
+                    if(error)
+                        return cb(error);
+                    return cb(null, resultado);
+                })
+            }
+        })
+    }
+
+Users.activar = (id,cb)=>{
+    if (!conn) return cb("No se ha podido crear la conexion");
+    conn.query('SELECT * FROM cliente WHERE id=?',id, function (err, resultado) {
+        if (err) return cb(err);
+        else{
+            let activo =resultado[0].active;
+            if(activo==1)
+                activo=0;
+            else
+                activo=1;
+            conn.query('UPDATE cliente set active='+activo+' WHERE id=?',id, function (err, resultado) {
+                if(error)
+                    return cb(error);
+                return cb(null, resultado);
+            })
+        }
+    })
+}
+Users.deleteUser = (id, cb)=>{
+        if (!conn)
+            return cb("No se ha podido crear la conexión");
+        conn.query('DELETE FROM cliente WHERE id=?', id, function(err, res){
+            if(err) return cb(err);
+            return cb(err,res);
+        })
+}
+
+Users.checkEmail = (email, cb)=>{
+        if (!conn)
+            return cb("No se ha podido crear la conexión");
+        conn.query('SELECT * FROM cliente WHERE email=?', email, function (err, res) {
+            if(err) return cb(err);
+            return cb(null, res);
+        })
+}
+Users.checkHash = (hash, cb)=>{
+        if(!conn)
+            return cb("No se ha podido crear la conexión");
+        conn.query('SELECT * FROM cliente WHERE hash=?', hash, function (err, res) {
+            return cb(null, res);
+        })
+}
+
 module.exports = Users;
 
 

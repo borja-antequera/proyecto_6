@@ -6,10 +6,14 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 //Carga de libreria session-flash
 var flash = require('connect-flash');
+
 var winston = require('./config/winston');
 var indexRouter = require('./routes/routes');
 var admins=require('./routes/admins');
 var users = require('./routes/users');
+var email = require('./routes/mailer');
+
+//const Sequelize =  require('sequelize');
 
 var hbs = require('hbs');
 var hbsUtils = require('hbs-utils')(hbs);
@@ -49,6 +53,7 @@ app.set('view engine', 'hbs');
 
 app.use('/admins',admins); //de la transparencia
 app.use('/users', users);
+app.use('/email', email);
 app.use('/', indexRouter);
 // catch 404 and forward to error handler
 

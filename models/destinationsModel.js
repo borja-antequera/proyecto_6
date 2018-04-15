@@ -6,7 +6,6 @@ destinations.getAllDestinations = (cb)=>{
     if (!conn) return cb("No se ha podido crear la conexion");
     conn.query('SELECT * FROM destinos',function (err,destinos) {
         if (err) return cb(err);
-        console.log(destinos);
         return cb(err,destinos);
     })
 };

@@ -8,7 +8,7 @@
 }
 
 #sectionDestinos{
-    background-image: url("../images/vegas.jpg");
+    background-image: url("../images/horses.jpg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -404,6 +404,8 @@ footer button:hover,
     padding-bottom: 5em;
     height: 100vm;
 }
+
+
 @media (max-width: 770px) {
     #mobile {
         display: inline;

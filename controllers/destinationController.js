@@ -1,24 +1,26 @@
 var destinationsModel = require('../models/destinationsModel');
 var destinationsController = {};
 
-destinationsController.getAllDestinations= (req, res, next)=> {
+destinationsController.getAllDestinations = (req, res, next) => {
     console.log("Estoy entrando");
-    destinationsModel.getAllDestinations((err,destinos)=>{
-        if(err) {
+    destinationsModel.getAllDestinations((err, destinos) => {
+        if (err) {
             res.status(500).json(err);
-        }else{
-            if(!req.session.username){
+        } else {
+            if (!req.session.username) {
                 res.redirect('/');
-            }else{
-                if(req.session.isAdmin){
-                    res.render('adminPanel',{
+            } else {
+                if (req.session.isAdmin) {
+                    res.render('adminPanel', {
                         title: 'Panel de administrador',
                         layout: '../views/templates/default',
                         destinos: destinos,
                         correcto: req.flash('correcto'),
                         error: req.flash('error'),
+                        isAdmin: true,
+                        isLogged: true
                     })
-                }else{
+                } else {
                     res.redirect('/');
                 }
             }
@@ -26,27 +28,28 @@ destinationsController.getAllDestinations= (req, res, next)=> {
     })
 };
 
-destinationsController.createDestination = (req, res, next)=>{
-    var destino={
+destinationsController.createDestination = (req, res, next) => {
+    var destino = {
         nombre_viaje: req.body.nombre,
         fechas: req.body.fecha,
         descripcion: req.body.descripcion,
-        imagen: req.body.imagen,
+        imagen: "" + req.file.destination + "" + req.file.filename,
         precio: req.body.precio,
         activo: req.body.activo
     }
+    console.log(destino);
 
-    destinationsModel.createDestination(destino,(err,result)=>{
-        if(err) {
+    destinationsModel.createDestination(destino, (err, result) => {
+        if (err) {
             res.status(500).json(err);
-        }else{
-            if(!req.session.username){
+        } else {
+            if (!req.session.username) {
                 res.redirect('/');
-            }else{
-                if(req.session.isAdmin){
-                    req.flash('correcto','Se ha creado el viaje correctamente!')
+            } else {
+                if (req.session.isAdmin) {
+                    req.flash('correcto', 'Se ha creado el viaje correctamente!');
                     res.redirect('/admins/adminpanel');
-                }else{
+                } else {
                     res.redirect('/');
                 }
             }
@@ -54,18 +57,18 @@ destinationsController.createDestination = (req, res, next)=>{
     })
 };
 
-destinationsController.deleteDestination = (req, res, next) =>{
-    destinationsModel.deleteDestination(req.params.id, (err, result)=>{
-        if(err){
+destinationsController.deleteDestination = (req, res, next) => {
+    destinationsModel.deleteDestination(req.params.id, (err, result) => {
+        if (err) {
             res.status(500).json(err);
-        }else{
-            if(!req.session.username){
+        } else {
+            if (!req.session.username) {
                 res.redirect('/');
-            }else{
-                if(req.session.isAdmin){
-                    req.flash('error','Se ha borrado el registro '+req.params.id+'!')
+            } else {
+                if (req.session.isAdmin) {
+                    req.flash('error', 'Se ha borrado el registro ' + req.params.id + '!')
                     res.redirect('/admins/adminpanel');
-                }else{
+                } else {
                     res.redirect('/');
                 }
             }
