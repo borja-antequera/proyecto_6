@@ -33,7 +33,7 @@ destinationsController.createDestination = (req, res, next) => {
         nombre_viaje: req.body.nombre,
         fechas: req.body.fecha,
         descripcion: req.body.descripcion,
-        imagen: "" + req.file.destination + "" + req.file.filename,
+        imagen: "/" + req.file.destination + "" + req.file.filename,
         precio: req.body.precio,
         activo: req.body.activo
     }
